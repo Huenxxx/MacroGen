@@ -9,11 +9,11 @@
     <Window.Resources>
         <!-- Panel -->
         <Style x:Key="Panel" TargetType="Border">
-            <Setter Property="Background" Value="#252526"/>
-            <Setter Property="BorderBrush" Value="#3C3C3C"/>
+            <Setter Property="Background" Value="#262626"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Padding" Value="12"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
         </Style>
 
         <!-- Section label -->
@@ -87,31 +87,33 @@
 
         <!-- Accent button (blue) -->
         <Style x:Key="AccentBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Background" Value="#0E639C"/>
-            <Setter Property="BorderBrush" Value="#1177BB"/>
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="BorderBrush" Value="#1D4ED8"/>
             <Setter Property="Foreground" Value="White"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1177BB"/>
+                    <Setter Property="Background" Value="#3B82F6"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Danger button -->
         <Style x:Key="DangerBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Foreground" Value="#F48771"/>
+            <Setter Property="Foreground" Value="#FCA5A5"/>
+            <Setter Property="BorderBrush" Value="#7F1D1D"/>
+            <Setter Property="Background" Value="#450A0A"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#4A2A2A"/>
+                    <Setter Property="Background" Value="#7F1D1D"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Transport buttons -->
         <Style x:Key="TransBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Width" Value="64"/>
-            <Setter Property="Height" Value="54"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="66"/>
+            <Setter Property="Height" Value="56"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -274,15 +276,15 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                             <Button x:Name="RecBtn" Style="{StaticResource TransBtn}"
                                     Content="REC (F1)" Tag="⏺"
-                                    Background="#6B1212" BorderBrush="#8B2020" Foreground="#FFAAAA"
-                                    Margin="0,0,6,0" Click="RecBtn_Click"/>
+                                    Background="#7F1D1D" BorderBrush="#991B1B" Foreground="#FECACA"
+                                    Margin="0,0,8,0" Click="RecBtn_Click"/>
                             <Button x:Name="PlayBtn" Style="{StaticResource TransBtn}"
                                     Content="PLAY (F2)" Tag="▶"
-                                    Background="#1A4A1A" BorderBrush="#2A6B2A" Foreground="#88DD88"
-                                    Margin="0,0,6,0" Click="PlayBtn_Click" IsEnabled="False"/>
+                                    Background="#14532D" BorderBrush="#166534" Foreground="#BBF7D0"
+                                    Margin="0,0,8,0" Click="PlayBtn_Click" IsEnabled="False"/>
                             <Button x:Name="StopBtn" Style="{StaticResource TransBtn}"
                                     Content="STOP (F3)" Tag="■"
-                                    Background="#3C3C3C" BorderBrush="#555555" Foreground="#AAAAAA"
+                                    Background="#3F3F46" BorderBrush="#52525B" Foreground="#E4E4E7"
                                     Click="StopBtn_Click" IsEnabled="False"/>
                         </StackPanel>
 

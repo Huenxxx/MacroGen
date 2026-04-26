@@ -339,22 +339,25 @@ namespace MacroCreatorApp
 
         private void OnStepStarted(int index)
         {
-            var steps = ActiveMacro?.Steps;
-            if (steps == null) return;
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
+                var steps = ActiveMacro?.Steps;
+                if (steps == null) return;
                 double pct   = (double)(index + 1) / steps.Count;
                 double totalW = (ProgressFill.Parent as Border)?.ActualWidth ?? 0;
                 ProgressFill.Width  = totalW * pct;
                 ProgressLabel.Text  = $"{index + 1} / {steps.Count}";
-                StepsListView.SelectedIndex = index;
-                StepsListView.ScrollIntoView(StepsListView.SelectedItem);
+                if (index >= 0 && index < StepsListView.Items.Count)
+                {
+                    StepsListView.SelectedIndex = index;
+                    StepsListView.ScrollIntoView(StepsListView.SelectedItem);
+                }
             });
         }
 
         private void OnPlaybackFinished()
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 _isPlaying = false;
                 ProgressPanel.Visibility    = Visibility.Collapsed;

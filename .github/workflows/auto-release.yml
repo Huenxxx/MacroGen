@@ -19,9 +19,8 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
         
       - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: Releases/MacroGen_${{ env.VERSION }}_Setup.exe
-          name: MacroGen ${{ env.VERSION }}
-          generate_release_notes: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ls -la Releases/
+          gh release create ${{ env.VERSION }} Releases/MacroGen_${{ env.VERSION }}_Setup.exe --title "MacroGen ${{ env.VERSION }}" --generate-notes

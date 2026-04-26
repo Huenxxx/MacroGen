@@ -1,0 +1,455 @@
+<Window x:Class="MacroCreatorApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MacroGen" Height="600" Width="900" MinHeight="480" MinWidth="720"
+        Background="#1E1E1E" Foreground="#D4D4D4"
+        FontFamily="Segoe UI" FontSize="12"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <!-- Panel -->
+        <Style x:Key="Panel" TargetType="Border">
+            <Setter Property="Background" Value="#252526"/>
+            <Setter Property="BorderBrush" Value="#3C3C3C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="12"/>
+        </Style>
+
+        <!-- Section label -->
+        <Style x:Key="SecLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#888888"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <!-- Macro ListBox -->
+        <Style x:Key="MacroLB" TargetType="ListBox">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="BorderBrush" Value="#3C3C3C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+        <Style x:Key="MacroLBI" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Margin" Value="0,1,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" Background="Transparent" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2A2D2E"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#094771"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Standard button -->
+        <Style x:Key="StdBtn" TargetType="Button">
+            <Setter Property="Background" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4A4A4A"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Accent button (blue) -->
+        <Style x:Key="AccentBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
+            <Setter Property="Background" Value="#0E639C"/>
+            <Setter Property="BorderBrush" Value="#1177BB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1177BB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Danger button -->
+        <Style x:Key="DangerBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
+            <Setter Property="Foreground" Value="#F48771"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4A2A2A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Transport buttons -->
+        <Style x:Key="TransBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
+            <Setter Property="Width" Value="64"/>
+            <Setter Property="Height" Value="54"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4">
+                                <TextBlock Text="{TemplateBinding Tag}" FontSize="18" HorizontalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                                <TextBlock Text="{TemplateBinding Content}" FontSize="9" FontWeight="Bold"
+                                           HorizontalAlignment="Center" Margin="0,2,0,0"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Steps ListView -->
+        <Style x:Key="StepLV" TargetType="ListView">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="BorderBrush" Value="#3C3C3C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style x:Key="StepLVI" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Bd" Background="Transparent"
+                                BorderBrush="#2A2A2A" BorderThickness="0,0,0,1" Padding="6,5">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2A2D2E"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#094771"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Toggle -->
+        <Style x:Key="Toggle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Combo -->
+        <Style x:Key="Combo" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+
+        <!-- NumBox -->
+        <Style x:Key="NumBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,3"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="Width" Value="52"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#333333" BorderBrush="#3C3C3C" BorderThickness="0,0,0,1">
+            <Grid Margin="10,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="MacroGen" FontWeight="SemiBold" FontSize="13"
+                               Foreground="#D4D4D4" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Ellipse x:Name="StatusDot" Width="7" Height="7" Fill="#4CAF50"
+                             VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBlock x:Name="StatusText" Text="Listo" Foreground="#888888"
+                               FontSize="11" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Margin="8,8,8,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT -->
+            <StackPanel Grid.Column="0">
+
+                <!-- Macros -->
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,8">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,6">
+                            <TextBlock Style="{StaticResource SecLabel}" Text="MACROS" VerticalAlignment="Center"/>
+                            <Button Content="+ Nueva" Style="{StaticResource AccentBtn}"
+                                    HorizontalAlignment="Right" Padding="8,3" FontSize="11"
+                                    Click="NewMacro_Click"/>
+                        </Grid>
+                        <ListBox x:Name="MacroListBox" Style="{StaticResource MacroLB}"
+                                 ItemContainerStyle="{StaticResource MacroLBI}"
+                                 MaxHeight="130" MinHeight="90" SelectionChanged="MacroListBox_SelectionChanged"
+                                 PreviewKeyDown="MacroListBox_PreviewKeyDown">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding DisplayName}" FontSize="12" Foreground="White"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                        <!-- Actions -->
+                        <Grid Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="↓ Importar" Style="{StaticResource StdBtn}" Padding="0,4" FontSize="11" Margin="0,0,4,0" Click="Import_Click"/>
+                            <Button Grid.Column="1" Content="↑ Guardar" Style="{StaticResource StdBtn}" Padding="0,4" FontSize="11" Margin="0,0,4,0" Click="Export_Click"/>
+                            <Button Grid.Column="2" Content="✕ Borrar" Style="{StaticResource DangerBtn}" Padding="8,4" FontSize="11" Click="DeleteMacro_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Controls -->
+                <Border Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SecLabel}" Text="CONTROLES"/>
+
+                        <!-- Transport -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <Button x:Name="RecBtn" Style="{StaticResource TransBtn}"
+                                    Content="REC (F1)" Tag="⏺"
+                                    Background="#6B1212" BorderBrush="#8B2020" Foreground="#FFAAAA"
+                                    Margin="0,0,6,0" Click="RecBtn_Click"/>
+                            <Button x:Name="PlayBtn" Style="{StaticResource TransBtn}"
+                                    Content="PLAY (F2)" Tag="▶"
+                                    Background="#1A4A1A" BorderBrush="#2A6B2A" Foreground="#88DD88"
+                                    Margin="0,0,6,0" Click="PlayBtn_Click" IsEnabled="False"/>
+                            <Button x:Name="StopBtn" Style="{StaticResource TransBtn}"
+                                    Content="STOP (F3)" Tag="■"
+                                    Background="#3C3C3C" BorderBrush="#555555" Foreground="#AAAAAA"
+                                    Click="StopBtn_Click" IsEnabled="False"/>
+                        </StackPanel>
+
+                        <!-- Start delay -->
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Retardo inicio (seg):" Foreground="#888888"
+                                       FontSize="11" VerticalAlignment="Center"/>
+                            <TextBox x:Name="StartDelayBox" Grid.Column="1" Style="{StaticResource NumBox}"
+                                     Text="0" Width="40" Margin="6,0,0,0"/>
+                        </Grid>
+
+                        <Separator Background="#3C3C3C" Margin="0,4,0,8"/>
+
+                        <!-- Loop & Speed -->
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                            <CheckBox x:Name="LoopToggle" Grid.Column="0" Style="{StaticResource Toggle}"
+                                      Content="Bucle" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Vel.:" Foreground="#888888" FontSize="11"
+                                           VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                <ComboBox x:Name="SpeedCombo" Style="{StaticResource Combo}" SelectedIndex="2" Width="70">
+                                    <ComboBoxItem Content="×0.25"/>
+                                    <ComboBoxItem Content="×0.5"/>
+                                    <ComboBoxItem Content="×1"/>
+                                    <ComboBoxItem Content="×1.5"/>
+                                    <ComboBoxItem Content="×2"/>
+                                    <ComboBoxItem Content="×5"/>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Repeats -->
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Repeticiones:" Foreground="#888888" FontSize="11"
+                                       VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBox x:Name="RepeatBox" Style="{StaticResource NumBox}" Text="1"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- RIGHT: Steps -->
+            <Border Grid.Column="2" Style="{StaticResource Panel}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,8">
+                        <TextBlock Style="{StaticResource SecLabel}" Text="PASOS" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="+ Añadir" Style="{StaticResource AccentBtn}"
+                                    Margin="0,0,6,0" Padding="8,3" FontSize="11" Click="AddStep_Click"/>
+                            <Button Content="Limpiar" Style="{StaticResource DangerBtn}"
+                                    Padding="8,3" FontSize="11" Click="ClearSteps_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Recording banner -->
+                    <Border x:Name="RecordingBanner" Grid.Row="1" Visibility="Collapsed"
+                            Background="#3A1010" BorderBrush="#6B2020" BorderThickness="1"
+                            CornerRadius="3" Padding="8,5" Margin="0,0,0,6">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="7" Height="7" Fill="#F44336"
+                                     VerticalAlignment="Center" Margin="0,0,7,0"/>
+                            <TextBlock x:Name="RecTimerLabel" Text="GRABANDO  00:00.000"
+                                       Foreground="#FFAAAA" FontFamily="Consolas" FontSize="12"
+                                       FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="RecStepCount" Text=""
+                                       Foreground="#FF8888" FontSize="11"
+                                       VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Progress bar -->
+                    <Border x:Name="ProgressPanel" Grid.Row="2" Visibility="Collapsed"
+                            Background="#1A2A3A" BorderBrush="#2A4A6A" BorderThickness="1"
+                            CornerRadius="3" Padding="8,5" Margin="0,0,0,6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#2A3A4A" CornerRadius="2" Height="4" VerticalAlignment="Center">
+                                <Border x:Name="ProgressFill" Background="#0E639C" CornerRadius="2"
+                                        HorizontalAlignment="Left" Width="0"/>
+                            </Border>
+                            <TextBlock x:Name="ProgressLabel" Grid.Column="1" Text="0 / 0"
+                                       Foreground="#6A9FCC" FontFamily="Consolas" FontSize="11"
+                                       VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Steps list -->
+                    <ListView x:Name="StepsListView" Grid.Row="3"
+                              Style="{StaticResource StepLV}"
+                              ItemContainerStyle="{StaticResource StepLVI}"
+                              PreviewKeyDown="StepsListView_PreviewKeyDown">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3"/>
+                                        <ColumnDefinition Width="26"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="22"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Type color strip -->
+                                    <Border Grid.Column="0" Margin="0,1,6,1" CornerRadius="1">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding TypeColor}"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <!-- Icon -->
+                                    <TextBlock Grid.Column="1" Text="{Binding TypeIcon}"
+                                               FontSize="14" VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" Foreground="White"/>
+
+                                    <!-- Label -->
+                                    <StackPanel Grid.Column="2" Margin="4,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding DisplayLabel}" FontSize="12" Foreground="White"/>
+                                        <TextBlock Text="{Binding DelayLabel}" FontSize="10"
+                                                   Foreground="#888888" FontFamily="Consolas"/>
+                                    </StackPanel>
+
+                                    <!-- Delay edit -->
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal"
+                                                VerticalAlignment="Center" Margin="0,0,4,0">
+                                        <TextBox Text="{Binding DelayBefore, UpdateSourceTrigger=LostFocus}"
+                                                 Style="{StaticResource NumBox}" Width="50" FontSize="11"
+                                                 ToolTip="Espera antes (ms)"/>
+                                        <TextBlock Text="ms" Foreground="#666666" FontSize="10"
+                                                   VerticalAlignment="Center" Margin="3,0,0,0"/>
+                                    </StackPanel>
+
+                                    <!-- Delete -->
+                                    <Button Grid.Column="4" Content="✕" Background="Transparent"
+                                            BorderThickness="0" Foreground="#666666" FontSize="12"
+                                            Cursor="Hand" Tag="{Binding}" Click="DeleteStep_Click"
+                                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#333333" BorderBrush="#3C3C3C" BorderThickness="0,1,0,0">
+            <TextBlock x:Name="FooterText"
+                       Text="Listo"
+                       Foreground="#666666" FontSize="11"
+                       VerticalAlignment="Center" Margin="10,0"/>
+        </Border>
+    </Grid>
+</Window>

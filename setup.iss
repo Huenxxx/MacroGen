@@ -1,6 +1,6 @@
 [Setup]
 AppName=MacroGen
-AppVersion=1.1.1
+AppVersion=1.1.2
 DefaultDirName={autopf}\MacroGen
 DefaultGroupName=MacroGen
 OutputDir=.\Releases
@@ -21,4 +21,4 @@ Name: "{autodesktop}\MacroGen"; Filename: "{app}\MacroCreator.exe"; Tasks: deskt
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
 
 [Run]
-Filename: "{app}\MacroCreator.exe"; Description: "Launch MacroGen"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\MacroCreator.exe"; Description: "{cm:LaunchProgram,MacroGen}"; Flags: nowait postinstall

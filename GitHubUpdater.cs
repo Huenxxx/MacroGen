@@ -172,10 +172,11 @@ namespace MacroCreatorApp
 
                 progressWindow.Close();
 
-                // Ejecutar el instalador y salir
+                // Ejecutar el instalador de forma silenciosa y salir
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = tempFile,
+                    Arguments = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART",
                     UseShellExecute = true
                 });
 

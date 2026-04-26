@@ -7,5 +7,6 @@
     <RootNamespace>MacroCreatorApp</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
 </Project>

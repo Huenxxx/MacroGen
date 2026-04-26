@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "MacroCreator/1.1.3": {
+      "MacroCreator/1.1.4": {
         "runtime": {
           "MacroCreator.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "MacroCreator/1.1.3": {
+    "MacroCreator/1.1.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

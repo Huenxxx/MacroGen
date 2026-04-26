@@ -81,7 +81,7 @@ namespace MacroCreatorApp
             string name = $"Macro {_macros.Count + 1}";
             var win = new Window
             {
-                Title = "Nueva Macro — MacroGen", Width = 340, Height = 160,
+                Title = "Nueva Macro — MacroGen", Width = 340, SizeToContent = SizeToContent.Height,
                 Background = new SolidColorBrush(Color.FromRgb(30, 30, 30)),
                 Foreground = Brushes.White,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,

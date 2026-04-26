@@ -1,6 +1,6 @@
 [Setup]
 AppName=MacroGen
-AppVersion=1.1.7
+AppVersion=1.1.8
 DefaultDirName={autopf}\MacroGen
 DefaultGroupName=MacroGen
 OutputDir=.\Releases

@@ -1,0 +1,26 @@
+name: Auto Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Extract version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Releases/MacroGen_${{ env.VERSION }}_Setup.exe
+          name: MacroGen ${{ env.VERSION }}
+          generate_release_notes: true

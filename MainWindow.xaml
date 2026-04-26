@@ -9,44 +9,41 @@
     <Window.Resources>
         <!-- Panel -->
         <Style x:Key="Panel" TargetType="Border">
-            <Setter Property="Background" Value="#262626"/>
-            <Setter Property="BorderBrush" Value="#333333"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Background" Value="#151515"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
         </Style>
 
         <!-- Section label -->
         <Style x:Key="SecLabel" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="10"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#888888"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#777777"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
         </Style>
 
         <!-- Macro ListBox -->
         <Style x:Key="MacroLB" TargetType="ListBox">
-            <Setter Property="Background" Value="#1E1E1E"/>
-            <Setter Property="BorderBrush" Value="#3C3C3C"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="MacroLBI" TargetType="ListBoxItem">
-            <Setter Property="Padding" Value="8,5"/>
-            <Setter Property="Margin" Value="0,1,0,0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="0,2"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Bd" Background="Transparent" Padding="{TemplateBinding Padding}">
+                        <Border x:Name="Bd" Background="Transparent" Padding="{TemplateBinding Padding}" CornerRadius="6">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#2A2D2E"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#222222"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#094771"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#005A9E"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -56,28 +53,25 @@
 
         <!-- Standard button -->
         <Style x:Key="StdBtn" TargetType="Button">
-            <Setter Property="Background" Value="#3C3C3C"/>
-            <Setter Property="Foreground" Value="#D4D4D4"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Background" Value="#222222"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3" Padding="{TemplateBinding Padding}">
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#4A4A4A"/>
+                                <Setter Property="Background" Value="#333333"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.4"/>
+                                <Setter Property="Opacity" Value="0.3"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -87,54 +81,49 @@
 
         <!-- Accent button (blue) -->
         <Style x:Key="AccentBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Background" Value="#2563EB"/>
-            <Setter Property="BorderBrush" Value="#1D4ED8"/>
+            <Setter Property="Background" Value="#0066FF"/>
             <Setter Property="Foreground" Value="White"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3B82F6"/>
+                    <Setter Property="Background" Value="#3385FF"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Danger button -->
         <Style x:Key="DangerBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Foreground" Value="#FCA5A5"/>
-            <Setter Property="BorderBrush" Value="#7F1D1D"/>
-            <Setter Property="Background" Value="#450A0A"/>
+            <Setter Property="Foreground" Value="#FF6B6B"/>
+            <Setter Property="Background" Value="#331111"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7F1D1D"/>
+                    <Setter Property="Background" Value="#551111"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Transport buttons -->
         <Style x:Key="TransBtn" TargetType="Button" BasedOn="{StaticResource StdBtn}">
-            <Setter Property="Width" Value="66"/>
-            <Setter Property="Height" Value="56"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="60"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Root" Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4">
-                                <TextBlock Text="{TemplateBinding Tag}" FontSize="18" HorizontalAlignment="Center"
+                        <Border x:Name="Root" Background="{TemplateBinding Background}" CornerRadius="12">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="{TemplateBinding Tag}" FontSize="20" HorizontalAlignment="Center"
                                            Foreground="{TemplateBinding Foreground}"/>
-                                <TextBlock Text="{TemplateBinding Content}" FontSize="9" FontWeight="Bold"
-                                           HorizontalAlignment="Center" Margin="0,2,0,0"
+                                <TextBlock Text="{TemplateBinding Content}" FontSize="10" FontWeight="Bold"
+                                           HorizontalAlignment="Center" Margin="0,4,0,0"
                                            Foreground="{TemplateBinding Foreground}"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Root" Property="Opacity" Value="0.85"/>
+                                <Setter TargetName="Root" Property="Opacity" Value="0.8"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Root" Property="Opacity" Value="0.3"/>
+                                <Setter TargetName="Root" Property="Opacity" Value="0.2"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -144,27 +133,25 @@
 
         <!-- Steps ListView -->
         <Style x:Key="StepLV" TargetType="ListView">
-            <Setter Property="Background" Value="#1E1E1E"/>
-            <Setter Property="BorderBrush" Value="#3C3C3C"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style x:Key="StepLVI" TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Margin" Value="0,2"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
-                        <Border x:Name="Bd" Background="Transparent"
-                                BorderBrush="#2A2A2A" BorderThickness="0,0,0,1" Padding="6,5">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Padding="10,8">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#2A2D2E"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#222222"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#094771"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#005A9E"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -174,28 +161,26 @@
 
         <!-- Toggle -->
         <Style x:Key="Toggle" TargetType="CheckBox">
-            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
         <!-- Combo -->
         <Style x:Key="Combo" TargetType="ComboBox">
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="Height" Value="24"/>
+            <Setter Property="Height" Value="28"/>
         </Style>
 
         <!-- NumBox -->
         <Style x:Key="NumBox" TargetType="TextBox">
-            <Setter Property="Background" Value="#3C3C3C"/>
-            <Setter Property="Foreground" Value="#D4D4D4"/>
-            <Setter Property="BorderBrush" Value="#555555"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="4,3"/>
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="6,4"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="Width" Value="52"/>
-            <Setter Property="Height" Value="24"/>
+            <Setter Property="Height" Value="28"/>
         </Style>
     </Window.Resources>
 

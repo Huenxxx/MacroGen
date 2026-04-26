@@ -12,10 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Threading;
+
 
 namespace MacroCreatorApp
 {
@@ -57,6 +54,9 @@ namespace MacroCreatorApp
 
             AddMacro("Macro 1");
             SetStatus("Listo", "#4CAF50", "Pulsa REC para grabar o Añadir para insertar pasos manualmente.");
+
+            // Check for updates in the background
+            this.Loaded += async (_, _) => await GitHubUpdater.CheckForUpdatesAsync();
         }
 
         // ── Macro management ─────────────────────────────────────────

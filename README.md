@@ -31,5 +31,18 @@ Navigate to `Releases/Setup` and run the installer. It will install MacroGen on 
 - Built with **WPF** and **.NET 9.0**.
 - Utilizes Low-Level Windows API Hooks (`WH_KEYBOARD_LL`, `WH_MOUSE_LL`) to capture and execute actions.
 
+## Auto-Update System
+
+MacroGen includes a built-in automatic update system that directly connects to GitHub Releases. It notifies users when a new version is available and handles downloading and installing it seamlessly.
+
+### How to publish a new release:
+1. Update the `<Version>` tag in `MacroCreatorApp.csproj` (e.g., `<Version>1.1.0</Version>`).
+2. Compile the application (`dotnet build -c Release`).
+3. Generate the installer using `setup.iss` (Inno Setup).
+4. Create a new Release on GitHub:
+   - **Tag**: Must match the version (e.g., `v1.1.0` or `1.1.0`).
+   - **Assets**: Upload the generated `.exe` installer (e.g., `MacroGen_Official_Setup.exe`).
+5. When users open an older version, they will be automatically prompted to update!
+
 ## License
 MIT License

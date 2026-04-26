@@ -25,7 +25,7 @@ Navigate to `Releases/Setup` and run the installer. It will install MacroGen on 
 1. **Recording:** Press **F2** to start recording your actions. Perform your task, then press **F2** again to stop.
 2. **Playing:** Press **F1** to execute the currently loaded macro. You can press **F1** again to abort playback.
 3. **Adding Steps:** Press **F3** to open the "Add Step" window to manually define a precise mouse click, movement, or keyboard input.
-4. **Saving/Loading:** Use the 'Save Macro' and 'Load Macro' buttons to keep your workflows organized as `.macro` files.
+4. **Saving/Loading:** Use the 'Save Macro' and 'Load Macro' buttons to keep your workflows organized as `.mgen` files.
 
 ## Project Structure
 - Built with **WPF** and **.NET 9.0**.

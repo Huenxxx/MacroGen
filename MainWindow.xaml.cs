@@ -397,6 +397,23 @@ namespace MacroCreatorApp
             FooterText.Text = footer;
         }
 
+        // ── Menu handlers ─────────────────────────────────────────────
+        private void Exit_Click(object sender, RoutedEventArgs e) => Close();
+
+        private async void Update_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isPlaying || _isRecording) { MessageBox.Show("Detén la reproducción/grabación primero.", "MacroGen"); return; }
+            SetStatus("Buscando actualizaciones...", "#F59E0B", "Comprobando última versión en GitHub...");
+            await GitHubUpdater.CheckForUpdatesAsync();
+            SetStatus("Listo", "#4CAF50", "Búsqueda completada.");
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            MessageBox.Show($"MacroGen v{version?.Major}.{version?.Minor}.{version?.Build}\n\nCreado por Huenxxx.\nGestor de macros rápido, silencioso y portátil.", "Acerca de MacroGen", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             _keyHook.Dispose(); _mouseHook.Dispose(); _playCts?.Cancel();

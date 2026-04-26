@@ -186,13 +186,30 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="36"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
 
+        <!-- Menu -->
+        <Menu Grid.Row="0" Background="#151515" Foreground="#E0E0E0" Padding="4,2" BorderThickness="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="Import Macro..." Click="Import_Click" Background="#222222" Foreground="Black"/>
+                <MenuItem Header="Export Macro..." Click="Export_Click" Background="#222222" Foreground="Black"/>
+                <Separator/>
+                <MenuItem Header="Exit" Click="Exit_Click" Background="#222222" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_Options">
+                <MenuItem Header="Check for Updates" Click="Update_Click" Background="#222222" Foreground="Black"/>
+            </MenuItem>
+            <MenuItem Header="_About">
+                <MenuItem Header="About MacroGen..." Click="About_Click" Background="#222222" Foreground="Black"/>
+            </MenuItem>
+        </Menu>
+
         <!-- Header -->
-        <Border Grid.Row="0" Background="#333333" BorderBrush="#3C3C3C" BorderThickness="0,0,0,1">
+        <Border Grid.Row="1" Background="#1A1A1A" BorderThickness="0">
             <Grid Margin="10,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="MacroGen" FontWeight="SemiBold" FontSize="13"
@@ -208,7 +225,7 @@
         </Border>
 
         <!-- Content -->
-        <Grid Grid.Row="1" Margin="8,8,8,8">
+        <Grid Grid.Row="2" Margin="8,8,8,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="240"/>
                 <ColumnDefinition Width="8"/>
@@ -432,7 +449,7 @@
         </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Background="#333333" BorderBrush="#3C3C3C" BorderThickness="0,1,0,0">
+        <Border Grid.Row="3" Background="#1A1A1A" BorderThickness="0">
             <Grid>
                 <TextBlock x:Name="FooterText"
                            Text="Listo"

@@ -24,3 +24,4 @@ jobs:
           files: Releases/MacroGen_${{ env.VERSION }}_Setup.exe
           name: MacroGen ${{ env.VERSION }}
           generate_release_notes: true
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -56,7 +56,8 @@ namespace MacroCreatorApp
                         foreach (var asset in assets.EnumerateArray())
                         {
                             string assetName = asset.GetProperty("name").GetString() ?? "";
-                            if (assetName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                            if (assetName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) && 
+                                assetName.Contains("setup", StringComparison.OrdinalIgnoreCase))
                             {
                                 downloadUrl = asset.GetProperty("browser_download_url").GetString();
                                 break;
@@ -166,6 +167,9 @@ namespace MacroCreatorApp
                     }
                 }
 
+                // Cerrar explícitamente el stream para liberar el archivo antes de ejecutarlo
+                await fileStream.DisposeAsync();
+
                 progressWindow.Close();
 
                 // Ejecutar el instalador y salir
@@ -175,7 +179,8 @@ namespace MacroCreatorApp
                     UseShellExecute = true
                 });
 
-                Application.Current.Shutdown();
+                // Forzar el cierre inmediato para asegurar que el instalador pueda sobreescribir el .exe
+                Environment.Exit(0);
             }
             catch (Exception ex)
             {

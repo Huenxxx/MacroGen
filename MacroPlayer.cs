@@ -49,6 +49,7 @@ namespace MacroCreatorApp
                     StepStarted?.Invoke(i);
                     int delay = Math.Max(0, (int)(steps[i].DelayBefore / speed));
                     if (delay > 0) { try { await Task.Delay(delay, ct); } catch { return; } }
+                    else { await Task.Yield(); }
                     if (ct.IsCancellationRequested) return;
                     ExecuteStep(steps[i], speed);
                 }

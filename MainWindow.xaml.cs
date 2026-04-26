@@ -55,6 +55,9 @@ namespace MacroCreatorApp
             AddMacro("Macro 1");
             SetStatus("Listo", "#4CAF50", "Pulsa REC para grabar o Añadir para insertar pasos manualmente.");
 
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            VersionText.Text = $"v{version?.Major}.{version?.Minor}.{version?.Build}";
+
             // Check for updates in the background
             this.Loaded += async (_, _) => await GitHubUpdater.CheckForUpdatesAsync();
         }
@@ -331,7 +334,7 @@ namespace MacroCreatorApp
             UpdateButtons();
 
             var steps = ActiveMacro.Steps.ToList();
-            await _player.PlayAsync(steps, speed, repeats, loop, _playCts.Token);
+            await Task.Run(async () => await _player.PlayAsync(steps, speed, repeats, loop, _playCts.Token));
         }
 
         private void OnStepStarted(int index)
